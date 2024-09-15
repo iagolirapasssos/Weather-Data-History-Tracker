@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Data & History Tracker</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container my-5">
+        <div class="text-center mb-4">
+            <h1>Weather Data & History Tracker</h1>
+            <p class="lead">Save and Track Thermal Data with Graphs</p>
+        </div>
+
+        <div class="row">
+            <!-- Custom Data Input -->
+            <div class="col-md-6">
+                <h4>Enter Custom Data</h4>
+                <form id="customForm">
+                    <div class="mb-3">
+                        <label for="temperature" class="form-label">Temperature (°C):</label>
+                        <input type="number" step="0.01" class="form-control" id="temperature" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="humidity" class="form-label">Humidity (%):</label>
+                        <input type="number" step="0.01" class="form-control" id="humidity" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="windSpeed" class="form-label">Wind Speed (km/h):</label>
+                        <input type="number" step="0.01" class="form-control" id="windSpeed" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="windDirection" class="form-label">Wind Direction (degrees):</label>
+                        <input type="number" step="0.01" class="form-control" id="windDirection" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pressure" class="form-label">Pressure (hPa):</label>
+                        <input type="number" step="0.01" class="form-control" id="pressure" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Calculate</button>
+                    <button type="button" class="btn btn-danger" id="resetData">Reset Data</button>
+                </form>
+                <h5 class="mt-4">Results:</h5>
+                <p id="customResults"></p>
+            </div>
+
+            <!-- Real-Time Weather Data -->
+            <div class="col-md-6">
+                <h4>Weather Data & Forecast</h4>
+                <form id="apiForm">
+                    <div class="mb-3">
+                        <label for="city" class="form-label">Enter City:</label>
+                        <input type="text" class="form-control" id="city" placeholder="e.g., New York" required>
+                    </div>
+                    <button type="submit" class="btn btn-success">Fetch Data</button>
+                </form>
+
+                <h5 class="mt-4">Weather Data:</h5>
+                <p id="apiResults"></p>
+            </div>
+        </div>
+
+        <!-- Graph Section -->
+        <div class="mt-5">
+            <h4>Weather Data History</h4>
+            <canvas id="weatherChart"></canvas>
+            <div class="btn-group mt-3" role="group">
+                <button type="button" class="btn btn-outline-primary" onclick="toggleGraph('temperature')">Temperature</button>
+                <button type="button" class="btn btn-outline-secondary" onclick="toggleGraph('pressure')">Pressure</button>
+                <button type="button" class="btn btn-outline-info" onclick="toggleGraph('humidity')">Humidity</button>
+                <button type="button" class="btn btn-outline-success" onclick="toggleGraph('windSpeed')">Wind Speed</button>
+                <button type="button" class="btn btn-outline-warning" onclick="toggleGraph('windDirection')">Wind Direction</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Settings Button and Modal -->
+    <div class="position-fixed bottom-0 end-0 p-3">
+        <button type="button" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#settingsModal">
+            <i class="bi bi-gear"></i>
+        </button>
+    </div>
+
+    <div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="settingsModalLabel">API Key Settings</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="apiKeyForm">
+			<div class="mb-3">
+			    <label for="apiKey" class="form-label">Enter API Key:</label>
+			    <!-- Alterar o tipo de 'text' para 'password' -->
+			    <input type="password" class="form-control" id="apiKey" required>
+			</div>
+			<button type="submit" class="btn btn-primary">Save API Key</button>
+		    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
